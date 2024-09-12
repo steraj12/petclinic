@@ -34,19 +34,25 @@ jobs:
             # Build the Java project (assuming Maven is used)
        - name: Build with Maven
          run: mvn clean install -Dmaven.test.skip=true --file pom.xml
-       - name: Build And Deploy
-         id: builddeploy
-         uses: Azure/static-web-apps-deploy@v1
+       - name: Deploy to Azure Web App
+         uses: azure/webapps-deploy@v2
          with:
-           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_GLACIER_03BD09100 }}
-           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-           action: "upload"
+          app-name: 'your-app-service-name'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: '*.jar'
+      # - name: Build And Deploy
+       #  id: builddeploy
+        # uses: Azure/static-web-apps-deploy@v1
+         #with:
+          # azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_GLACIER_03BD09100 }}
+           #repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+           #action: "upload"
            ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
            # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-           app_location: "/" # App source code path
-           api_location: "" # Api source code path - optional
-           output_location: "target" # Built app content directory - optional
-           ###### End of Repository/Build Configurations ####
+           #app_location: "/" # App source code path
+           #api_location: "" # Api source code path - optional
+           #output_location: "target" # Built app content directory - optional
+           ####### End of Repository/Build Configurations ####
          
 
   close_pull_request_job:
