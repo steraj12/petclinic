@@ -19,6 +19,12 @@ jobs:
          with:
            submodules: true
            lfs: false
+    # Set up Java 17
+       - name: Set up JDK 17
+         uses: actions/setup-java@v3
+         with:
+           java-version: '17'
+           distribution: 'temurin' # or 'zulu' or other available distributions if needed           
        - name: Build And Deploy
          id: builddeploy
          uses: Azure/static-web-apps-deploy@v1
