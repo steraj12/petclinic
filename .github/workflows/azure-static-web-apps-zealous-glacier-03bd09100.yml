@@ -24,7 +24,13 @@ jobs:
          uses: actions/setup-java@v3
          with:
            java-version: '17'
-           distribution: 'temurin' # or 'zulu' or other available distributions if needed           
+           distribution: 'temurin' # or 'zulu' or other available distributions if needed    
+        # Set environment variables for Oryx to use Java 17
+       - name: Set Oryx Environment for Java 17
+         run: |
+           echo "JAVA_VERSION=17" >> $GITHUB_ENV
+           echo "ORYX_ENV_TYPE=java" >> $GITHUB_ENV
+           echo "ORYX_ENVIRONMENT_NAME=java-17" >> $GITHUB_ENV           
        - name: Build And Deploy
          id: builddeploy
          uses: Azure/static-web-apps-deploy@v1
