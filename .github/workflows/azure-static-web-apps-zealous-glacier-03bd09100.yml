@@ -37,7 +37,10 @@ jobs:
        - name: Deploy to Azure Web App
          uses: azure/webapps-deploy@v2
          with:
-          app-name: 'your-app-service-name'
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_GLACIER_03BD09100 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: "upload"
+          app-name: 'petclinicdev'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: '*.jar'
       # - name: Build And Deploy
