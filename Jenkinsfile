@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // Docker image creation
                 echo 'Docker image creation...'
-		bat 'docker build -f Dockerfile -t hub.docker.com/steraj16/petclinc_app:1.0'
+		bat 'docker build -f Dockerfile . -t hub.docker.com/steraj16/petclinc_app:1.0'
 		bat 'docker push hub.docker.com/steraj16/petclinc_app:1.0'
             }
         }
