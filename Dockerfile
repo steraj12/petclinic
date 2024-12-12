@@ -1,4 +1,4 @@
 FROM openjdk:11-jre-slim
 COPY ./target/*.jar /app/app.jar
-WPRKDIR /app
+WORKDIR /app
 ENTRYPOINT 'java -jar app.jar'
