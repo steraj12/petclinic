@@ -9,7 +9,7 @@ pipeline {
         stage('maven build') {
             steps {
                 // Build of the application
-		sh 'maven clean install'
+		sh 'mvn clean install'
                 
             }
         }
