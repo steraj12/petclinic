@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('maven build') {
+        stage('Maven build') {
             steps {
                 // Build of the application
 		bat 'mvn clean install'
@@ -14,10 +14,11 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Docker Build') {
             steps {
-                // Add deployment steps here if needed
-                echo 'Deploying...'
+                // Docker image creation
+                echo 'Docker image creation...'
+		bat 'docker build -f Dockerfile -t petclinc_app:
             }
         }
     }
