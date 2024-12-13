@@ -24,7 +24,7 @@ pipeline {
             }
         }
 		
-		stage('Docker Build and Push') {
+		stage('Helm Deployment') {
             steps {
                 // Docker image creation
 				cd charts
