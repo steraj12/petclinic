@@ -29,8 +29,8 @@ pipeline {
                 // Docker image creation
 				cd charts
                 echo '------------------------ Deployment of Petclinic app-----------------------------------------------------------------'
-				helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="petclinic" --set image.="petclinic" -n petclinc
-				kubectl get po -n petclinc
+				bat helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="petclinic" --set image.="petclinic" -n petclinc
+				bat kubectl get po -n petclinc
 				
             }
         }
