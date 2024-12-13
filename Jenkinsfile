@@ -14,16 +14,27 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
+        stage('Docker Build and Push') {
             steps {
                 // Docker image creation
                 echo 'Docker image creation...'
-		bat 'docker build -f Dockerfile . -t steraj16/petclinc_app:1.0'
-		bat 'docker push steraj16/petclinc_app:1.0'
+				bat 'docker build -f Dockerfile . -t steraj16/petclinc_app:1.0'
+				bat 'docker push steraj16/petclinc_app:1.0'
+				
             }
         }
     }
-
+		stage('Docker Build and Push') {
+            steps {
+                // Docker image creation
+				cd charts
+                echo '------------------------ Deployment of Petclinic app-----------------------------------------------------------------'
+				helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="petclinic" --set image.="petclinic" -n petclinc
+				kubectl get po -n petclinc
+				
+            }
+        }
+    }
     post {
         success {
             // Add post-build steps here (e.g., notifications)
