@@ -27,7 +27,7 @@ pipeline {
 		stage('Helm Deployment') {
             steps {
                 // Docker image creation
-				cd charts
+				cd ./charts
                 echo '------------------------ Deployment of Petclinic app-----------------------------------------------------------------'
 				bat 'helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="petclinic" --set image.="petclinic" -n petclinc'
 				bat 'kubectl get po -n petclinc'
