@@ -23,7 +23,7 @@ pipeline {
 				
             }
         }
-    }
+		
 		stage('Docker Build and Push') {
             steps {
                 // Docker image creation
