@@ -9,7 +9,7 @@ properties([
             name: 'DOCKER_IMAGE',
             choices: ['Yes', 'No'],
             description: 'Do You want to build Build New Docker image'
-        ),       
+        ),
     choise(
             name: 'DEPLOY_ENABLE',
             choices: ['Yes', 'No'],
@@ -44,7 +44,7 @@ pipeline {
             when {
                 beforeAgent true
                 expression { parameters.DOCKER_IMAGE == 'Yes'}
-            }            
+            }
             steps {
                 // Docker image creation
                 echo 'Docker image creation...'
