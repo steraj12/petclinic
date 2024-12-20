@@ -62,7 +62,7 @@ pipeline {
                     // Deploy using Helm
                     echo 'Deploying Petclinic app using Helm...'
                     echo 'Login to cluster'
-                    bat 'kubectl config set-context docker-desktop'
+                    bat 'kubectl config set-context docker-deskto'
                     bat 'helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="steraj16/petclinic_app" --set image.tag="1.0" -n petclinic'
                     bat 'kubectl get po -n petclinic'
                 }
