@@ -68,12 +68,6 @@ pipeline {
 				
             }
         }
-    }
-	
-    post {
-        success {
-            // Add post-build steps here (e.g., notifications)
-            echo 'Build and deployment successful!'
-        }
-    }
+    }	
+
 }
