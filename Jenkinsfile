@@ -16,6 +16,7 @@ properties([
             description: 'Do You want to build New Jar'
         )
     ])
+])
 
 
 
