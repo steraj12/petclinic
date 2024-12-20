@@ -58,7 +58,7 @@ pipeline {
             when {
                 beforeAgent true
                 expression { parameters.DEPLOY_ENABLE == 'Yes'}
-            }            
+            }
             steps {
                 // Docker image creation
 				cd ./charts
@@ -69,3 +69,4 @@ pipeline {
             }
         }
     }
+}
