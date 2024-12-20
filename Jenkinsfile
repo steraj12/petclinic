@@ -1,3 +1,24 @@
+properties([
+    parameters([
+        choice(
+            name: 'BUILD_ENABLE',
+            choices: ['Yes', 'No'],
+            description: 'Do You want to build New Jar'         
+        )
+        choise(
+            name: 'DOCKER_IMAGE'
+            choices: ['Yes', 'No'],
+            description: 'Do You want to build Build New Docker image'
+        )        
+        choise(
+            name: 'DEPLOY_ENABLE'
+            choices: ['Yes', 'No'],
+            description: 'Do You want to build New Jar'
+        )
+    ])
+
+
+
 pipeline {
     agent any
     environment {
@@ -7,6 +28,10 @@ pipeline {
 
     stages {
         stage('Maven build') {
+            when {
+                beforeAgent true
+                expression { parameters.BUILD_ENABLE == 'Yes'}
+            }
             steps {
                 // Build of the application
 		bat 'mvn clean install -Dmaven.test.skip=true'
@@ -15,6 +40,10 @@ pipeline {
         }
 
         stage('Docker Build and Push') {
+            when {
+                beforeAgent true
+                expression { parameters.DOCKER_IMAGE == 'Yes'}
+            }            
             steps {
                 // Docker image creation
                 echo 'Docker image creation...'
@@ -25,6 +54,10 @@ pipeline {
         }
 		
 		stage('Helm Deployment') {
+            when {
+                beforeAgent true
+                expression { parameters.DEPLOY_ENABLE == 'Yes'}
+            }            
             steps {
                 // Docker image creation
 				cd ./charts
