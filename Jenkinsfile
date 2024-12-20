@@ -34,8 +34,8 @@ pipeline {
             steps {
                 // Build the application
                 bat 'mvn clean install -Dmaven.test.skip=true'
-                bat 'ls'
-                archiveArtifact artifact: '**/*.jar'
+                //bat 'ls'
+                archiveArtifacts artifacts: 'target/*.jar'
             }
         }
 
