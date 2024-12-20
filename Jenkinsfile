@@ -1,24 +1,22 @@
 properties([
     parameters([
-    choice(
+        choice(
             name: 'BUILD_ENABLE',
             choices: ['Yes', 'No'],
-            description: 'Do You want to build New Jar'         
+            description: 'Do you want to build a new JAR?'
         ),
-    choise(
+        choice(
             name: 'DOCKER_IMAGE',
             choices: ['Yes', 'No'],
-            description: 'Do You want to build Build New Docker image'
+            description: 'Do you want to build a new Docker image?'
         ),
-    choise(
+        choice(
             name: 'DEPLOY_ENABLE',
             choices: ['Yes', 'No'],
-            description: 'Do You want to build New Jar'
+            description: 'Do you want to deploy the application?'
         )
     ])
 ])
-
-
 
 pipeline {
     agent any
@@ -28,44 +26,42 @@ pipeline {
     }
 
     stages {
-        stage('Maven build') {
+        stage('Maven Build') {
             when {
                 beforeAgent true
-                expression { parameters.BUILD_ENABLE == 'Yes'}
+                expression { params.BUILD_ENABLE == 'Yes' }
             }
             steps {
-                // Build of the application
-		bat 'mvn clean install -Dmaven.test.skip=true'
-                
+                // Build the application
+                bat 'mvn clean install -Dmaven.test.skip=true'
             }
         }
 
         stage('Docker Build and Push') {
             when {
                 beforeAgent true
-                expression { parameters.DOCKER_IMAGE == 'Yes'}
+                expression { params.DOCKER_IMAGE == 'Yes' }
             }
             steps {
-                // Docker image creation
+                // Docker image creation and push
                 echo 'Docker image creation...'
-				bat 'docker build -f Dockerfile . -t steraj16/petclinc_app:1.0'
-				bat 'docker push steraj16/petclinc_app:1.0'
-				
+                bat 'docker build -f Dockerfile . -t steraj16/petclinic_app:1.0'
+                bat 'docker push steraj16/petclinic_app:1.0'
             }
         }
-		
-		stage('Helm Deployment') {
+
+        stage('Helm Deployment') {
             when {
                 beforeAgent true
-                expression { parameters.DEPLOY_ENABLE == 'Yes'}
+                expression { params.DEPLOY_ENABLE == 'Yes' }
             }
             steps {
-                // Docker image creation
-				cd ./charts
-                echo '------------------------ Deployment of Petclinic app-----------------------------------------------------------------'
-				bat 'helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="petclinic" --set image.="petclinic" -n petclinc'
-				bat 'kubectl get po -n petclinc'
-				
+                dir('charts') {
+                    // Deploy using Helm
+                    echo 'Deploying Petclinic app using Helm...'
+                    bat 'helm upgrade --install petclinic . --create-namespace -f values.yaml --set image.repository="steraj16/petclinic_app" --set image.tag="1.0" -n petclinic'
+                    bat 'kubectl get po -n petclinic'
+                }
             }
         }
     }
