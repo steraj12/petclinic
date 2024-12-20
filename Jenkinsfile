@@ -1,16 +1,16 @@
 properties([
     parameters([
-        choice(
+    choice(
             name: 'BUILD_ENABLE',
             choices: ['Yes', 'No'],
             description: 'Do You want to build New Jar'         
-        )
-        choise(
+        ),
+    choise(
             name: 'DOCKER_IMAGE'
             choices: ['Yes', 'No'],
             description: 'Do You want to build Build New Docker image'
-        )        
-        choise(
+        ),       
+    choise(
             name: 'DEPLOY_ENABLE'
             choices: ['Yes', 'No'],
             description: 'Do You want to build New Jar'
