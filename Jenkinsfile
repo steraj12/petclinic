@@ -6,12 +6,12 @@ properties([
             description: 'Do You want to build New Jar'         
         ),
     choise(
-            name: 'DOCKER_IMAGE'
+            name: 'DOCKER_IMAGE',
             choices: ['Yes', 'No'],
             description: 'Do You want to build Build New Docker image'
         ),       
     choise(
-            name: 'DEPLOY_ENABLE'
+            name: 'DEPLOY_ENABLE',
             choices: ['Yes', 'No'],
             description: 'Do You want to build New Jar'
         )
